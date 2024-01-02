@@ -56,23 +56,21 @@ def predict_result(predict):
     model = load_model(os.path.join(os.path.dirname(__file__), 'models/citradigital/model.h5'), custom_objects={'f1_score': f1_score})
     pred = model.predict(predict)
     predicted = np.argmax(pred[0])
-    #classes={0:'fear', 1:'angry', 2:'disgust', 3:'happy', 4:'neutral', 5:'sad'}
-    #label_dict = {0: 'Tingkat 0', 1: 'Tingkat 1', 2: 'Tingkat2', 3: 'Tingkat 3'}
-    #liste = list(predicted[0])
-    classes=['fear', 'angry', 'disgust', 'happy', 'neutral', 'sad']
+    # classes=['fear', 'angry', 'disgust', 'happy', 'neutral', 'sad']
     
+    #print(predicted)
     print(pred)
-
-    if classes[predicted] == 'fear':
-        return 0
-    elif classes[predicted] == 'angry':
-        return 1
-    elif classes[predicted] == 'disgust':
-        return 2
-    elif classes[predicted] == 'happy':
-        return 3
-    elif classes[predicted] == 'neutral':
-        return 4
-    else:
-        return 5
+    return predicted
+    # if classes[predicted] == 'fear':
+    #     return 0
+    # elif classes[predicted] == 'angry':
+    #     return 1
+    # elif classes[predicted] == 'disgust':
+    #     return 2
+    # elif classes[predicted] == 'happy':
+    #     return 3
+    # elif classes[predicted] == 'neutral':
+    #     return 4
+    # else:
+    #     return 5
     

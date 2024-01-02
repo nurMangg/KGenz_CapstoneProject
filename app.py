@@ -7,13 +7,8 @@ import io
 import datetime
 import json
 
-from api.getData_youtube import getData_yt
-
 #Password Hashing
 from flask_bcrypt import Bcrypt
-
-# import tensorflow
-from tensorflow.keras.models import load_model
 
 #Model
 from model import preprocess_img, predict_result, facecrop
@@ -88,8 +83,6 @@ def list():
         
     return render_template("user/list.html", users = users, hist = historyq, title = title)
     
-        
-
 @app.route("/", methods=['GET', 'POST'])
 def index():
 
@@ -161,6 +154,8 @@ def artikel():
         get_artikel = json.load(open(os.path.join(os.path.dirname(__file__), "api/data_youtube.json")))
         
         return render_template("user/artikel.html", active = view, title = title, artikel = get_artikel["items"])
+    
+    
 @app.route("/layanan", methods=['GET', 'POST'])
 def layanan():
     if session.get('user_id') is None:
@@ -275,11 +270,9 @@ def profil_password():
         
         if request.method == 'POST':
             pass_new = bcrypt.generate_password_hash(request.form['password_new']).decode('utf-8')
-            pass_old = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
             if bcrypt.check_password_hash(profil.password, request.form['password']):
                 if pass_new == profil.password:
                     flash('Password baru tidak boleh sama dengan password lama', 'danger')
-                    ExternalInterface.call("document.location.reload", 0);
                     return redirect(url_for('profil'))
                 elif request.form['password_new'] != request.form['password_confirm']:
                     flash('Password baru tidak sesuai', 'danger')
@@ -347,12 +340,10 @@ def save():
         img_data = data['image'].split(',')[1]
         image = Image.open(io.BytesIO(base64.b64decode(img_data)))
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], "capture-camera.png"))
-        img = preprocess_img(io.BytesIO(base64.b64decode(img_data)))
-        pred = predict_result(img)
         return 'success', 200
     return 'Error', 400
 
-@app.route('/predict')
+@app.route('/predict', methods=['GET','POST'])
 def predict():
     facecrop(os.path.join(app.config['UPLOAD_FOLDER'], "capture-camera.png"))
     img = preprocess_img(os.path.join(app.config['UPLOAD_FOLDER'], "capture-camera.png"))
