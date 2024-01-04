@@ -4,8 +4,9 @@ import os
 from PIL import Image
 import base64
 import io
-import datetime
+from datetime import datetime
 import json
+import pytz 
 
 #Password Hashing
 from flask_bcrypt import Bcrypt
@@ -21,6 +22,10 @@ from sentiment import predict_sentiment
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import Integer, String, and_, func
+
+
+# Time Format
+target_timezone = 'Asia/Jakarta'
 
 
 class Base(DeclarativeBase):
@@ -56,7 +61,7 @@ class User(db.Model):
 class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     result = db.Column(db.Integer, nullable=False)
-    date = db.Column(db.DateTime, default=datetime.datetime.now)
+    date = db.Column(db.DateTime, default=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
     def __repr__(self):
@@ -66,7 +71,7 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     review = db.Column(db.String(100), nullable=False)
     score = db.Column(db.Integer, nullable=False)
-    date = db.Column(db.DateTime, default=datetime.datetime.now)
+    date = db.Column(db.DateTime, default=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
     def __repr__(self):
@@ -165,13 +170,20 @@ def layanan():
         view = "layanan"
         predict = 0
         
+        sentiment = db.session.query(Review.score, func.count(Review.score)).group_by(Review.score).all()
+        
         if request.method == 'POST':
             word = request.form['review']
             predict = predict_sentiment(word)
             
+            utc_time = datetime.utcnow()
+            local_timezone = pytz.timezone(target_timezone)
+            local_time = pytz.utc.localize(utc_time).astimezone(local_timezone)
+            
             review = Review(
                 review = word,
                 score = int(predict),
+                date = local_time.replace(microsecond=0),
                 user_id = session['user_id']
                 
             )
@@ -182,10 +194,10 @@ def layanan():
             getReview = Review.query.order_by(Review.date.desc()).limit(5).all()
             
             
-            return render_template("user/layanan.html", predict = predict, active = view, title = title, review = getReview)
+            return render_template("user/layanan.html", predict = predict, active = view, title = title, review = getReview, sentiment=sentiment)
             
         getReview = Review.query.order_by(Review.date.desc()).limit(5).all()
-        return render_template("user/layanan.html", active = view, title = title,predict = predict, review = getReview)
+        return render_template("user/layanan.html", active = view, title = title,predict = predict, review = getReview, sentiment=sentiment)
 
 
 @app.route("/capture-layanan")
@@ -221,26 +233,28 @@ def history():
     if session.get('user_id') is None:
         return redirect(url_for('index'))
     else :
-        history = db.session.query(History.result, func.count(History.result)).where(History.user_id == session['user_id']).group_by(History.result).all()
+        history = db.session.query(History.result).where(History.user_id == session['user_id']).all()
         
         for history in history:
             if history[0] == 3:
-                t0 = history[1]
+                t0 += 1
             elif history[0] == 4:
-                t1 = history[1]
+                t1 += 1
             elif history[0] == 1 or history[0] == 5:
-                t2 = history[1]
+                t2 += 1
             elif history[0] == 2 or history[0] == 0:
-                t3 = history[1]
+                t3 += 1
             else:
                 none = history
         
-        hist = [t0, t1, t2, t3]    
-        # print(session['user_id'])
-        # print(history)
-        print(hist)
+        hist = [t0, t1, t2, t3]
+        
+        idq = session['user_id']
+        history_user = db.session.execute(db.select(History).where(History.user_id == idq).order_by(History.id)).scalars()
+        
+        
         title = "K-Genz | History"
-        return render_template("user/history.html", hist = hist, title = title)
+        return render_template("user/history.html", hist = hist, title = title, ri = history_user)
 
 @app.route("/profil", methods=['GET', 'POST'])
 def profil():
@@ -308,9 +322,15 @@ def upload_file():
                 img = preprocess_img(os.path.join(app.config['UPLOAD_FOLDER'], image.filename))
                 pred = predict_result(img)
                 
+                
+                utc_time = datetime.utcnow()
+                local_timezone = pytz.timezone(target_timezone)
+                local_time = pytz.utc.localize(utc_time).astimezone(local_timezone)
+                
                 #save database history
                 hist = History(
                     result = str(pred),
+                    date = local_time.replace(microsecond=0),
                     user_id = user.id
                 )
                 db.session.add(hist)
@@ -349,8 +369,13 @@ def predict():
     img = preprocess_img(os.path.join(app.config['UPLOAD_FOLDER'], "capture-camera.png"))
     pred = predict_result(img)
     
+    utc_time = datetime.utcnow()
+    local_timezone = pytz.timezone(target_timezone)
+    local_time = pytz.utc.localize(utc_time).astimezone(local_timezone)
+    
     hist = History(
         result = str(pred),
+        date = local_time.replace(microsecond=0),
         user_id = session.get('user_id')
     )
     db.session.add(hist)
