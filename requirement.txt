@@ -13,3 +13,9 @@ flask_bcrypt
 flask_session
 google-api-python-client
 scikit-learn
+
+#sentimen Analisis
+Sastrawi
+pandas
+pickle
+nltk

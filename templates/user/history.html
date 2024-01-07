@@ -1,16 +1,10 @@
-{% extends "user/layouts/main.html" %}
+{% extends "user/layouts/main_utama.html" %}
 
 {% block title %}
 {{title}}
 
 {% endblock title %}
 
-{% block icons %}
-<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.svg')}}" type="image/x-icon">
-{% endblock icons %}
-
-
-{% include "user/layouts/navbar.html" %}
 
 {% block content1 %}
 

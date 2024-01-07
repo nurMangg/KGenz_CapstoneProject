@@ -4,10 +4,24 @@
     {{title}}
 {% endblock title %}
 
+{% block styles %}
+html,
+body {
+
+    font-family: 'poppins';
+    overflow: auto;
+    background-image: linear-gradient(90deg, #f5f7fa 0%, #c3cfe2 100%);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+{% endblock styles %}
+
 
 
 {% block content1 %}
-<div class="containerLogin d-flex justify-content-center">
+<div class="containerLogin d-flex justify-content-center" style="flex: 1;">
     <div class="container">
         <div class="login">
             <div class="image">
@@ -60,11 +74,8 @@
 
 {% block content2 %}
 <div class="d-flex justify-content-center">
-    <div class="" style="position: absolute; bottom: 0%;">
-        <footer>
-            <p class="text-center">Copyright &copy; 2023 Capstone Project</p>
-        </footer>
-
-    </div>
+    <footer class="footer">
+        <p class="text-center">Copyright &copy; 2023 - 2024 KGenz - Capstone Project</p>
+    </footer>
 </div>
 {% endblock content2 %}

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, Response, url_for, session, flash
+from flask import Flask, render_template, request, redirect, Response, url_for, session, flash, send_file
 from flask_session import Session
 import os
 from PIL import Image
@@ -95,12 +95,12 @@ def index():
         user = User.query.filter_by(email = request.form['email']).first()
         
         if user and bcrypt.check_password_hash(user.password, request.form['password']):
-            flash('Login Success', 'success')
+            flash('Login Berhasil', 'success')
             session['user_id'] = user.id
             session['fullname'] = user.fullname
             return redirect(url_for('beranda'))
         else :
-            flash('Please check your login details and try again.', 'danger')
+            flash('Silahkan cek detail login kembali dan coba lagi', 'danger')
             return render_template('user/index.html')
     
     if request.method == 'GET':
@@ -110,15 +110,24 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        user = User(
-            fullname = request.form['fullName'],
-            email = request.form['email'],
-            password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8'),
-        )
-        db.session.add(user)
-        db.session.commit()
-        session['user_id'] = user.id
-        return redirect(url_for('index'))
+        check = User.query.filter_by(email = request.form['email']).first()
+        check_user = check.email.lower()
+        print(request.form['email'].lower())
+        print(check_user)
+        if check_user == request.form['email'].lower() :
+            flash('Email Telah digunakan', 'danger')
+            return render_template('user/register.html')
+        else :
+            user = User(
+                fullname = request.form['fullName'],
+                email = request.form['email'],
+                password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8'),
+            )
+            db.session.add(user)
+            db.session.commit()
+            session['user_id'] = user.id
+            flash('Akun Telah dibuat, silahkan melakukan login', 'danger')
+            return redirect(url_for('index'))
     
     
     title = "K-Genz | Register"
@@ -393,6 +402,11 @@ def predict():
     datajson = json.load(open(os.path.join(os.path.dirname(__file__), "api/data_tingkatStress.json")))
         
     return render_template("user/resultCapture.html", sh_img="capture-camera.png", predict=str(preds), data = datajson)
+
+@app.route('/download')
+def download_file():
+    file_path = os.path.join(os.path.dirname(__file__), "api/data_tingkatStress.json")
+    return send_file(file_path, as_attachment=True)
     
 if __name__ == '__main__':
 	app.run(debug=True)

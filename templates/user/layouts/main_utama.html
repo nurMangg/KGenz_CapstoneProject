@@ -3,12 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block title %}
         {% endblock %}
     </title>
-    {% block icons %}{% endblock icons %}
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.svg')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
 
@@ -21,7 +20,6 @@
 </head>
 
 <style>
-    {% block styles %}
     html,
     body {
 
@@ -29,10 +27,6 @@
         overflow: auto;
         background-image: linear-gradient(90deg, #f5f7fa 0%, #c3cfe2 100%);
     }
-    {% endblock styles %}
-
-
-
 
     .nav-link {
         font-size: 50px;
@@ -152,9 +146,9 @@
         margin-top: 250px;
     }
 
-    .footer {
-        padding: 10px
-    }
+    
+
+
 
     @media screen and (max-width: 768px) {
         .containerLogin {
@@ -171,19 +165,16 @@
         .mx-auto {
             margin-top: 0px;
         }
-        
-        .footer {
-            
-            left: 0;
-            bottom: 0;
-            width: 100%;
-        }
 
 
     }
 </style>
 
 <body>
+    {% block navbar %}
+    {% include "user/layouts/navbar.html" %}
+    {% endblock %}
+
     {% block content1 %}
     {% endblock %}
 
