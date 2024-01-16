@@ -17,6 +17,7 @@
     html,
     body {
         height: 100%;
+        background-image: linear-gradient(90deg, #f5f7fa 0%, #c3cfe2 100%);
 
     }
 
@@ -75,11 +76,27 @@
         /* Menghindari tampilan yang melebihi kotak */
     }
 
+    .color {
+        background-color: #11009E;
+        color: white;
+        align-items: center;
+        text-align: center;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .color:hover {
+        background-color: #090058;
+    }
+
 
     .image-logo {
         position: absolute;
         top: 150px;
-        right: 500px;
+        right: 600px;
         width: 100px;
         height: 100px;
     }
@@ -92,8 +109,8 @@
 </style>
 
 <body>
-    <div class="navbar">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary w-100">
+    <div class="navbar pb-5">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary w-100" style="background-image: linear-gradient(90deg, #f5f7fa 0%, #c3cfe2 100%);">
             <div class="container-fluid ms-5">
                 <img class="navbar-brand" src="{{ url_for('static', filename='img/logo.png')}}" width="300px"
                     height="75px" alt="">
@@ -113,27 +130,29 @@
                     <div class="box p-3">
                         <h1 class="text-center" style="font-family: poppins; font-weight: bold; font-size: x-large;">
                             Hasil Tingkat Stress Anda :</h1>
-                        <img src="{{ url_for('static', filename='/uploads/' + sh_img )}}" class="p-3 text-center"
-                            style="text-align: center; align-items: center;" width="400px" height="400px">
+                            <div class="d-flex justify-content-center align-items-center pb-5 pt-5">
+                                <img src="{{ url_for('static', filename='/uploads/' + sh_img )}}" width="300px" height="300px">
+                            </div>
+                        
                         {% if predict %}
                         <p class="text-dark text-center font-weight-bold">Anda Mengalami Tingkat Stress : {{predict}}
                         </p>
                         {% else %}
                         <p class=" text-dark font-weight-bold">{{err}}</p>
                         {% endif %}
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">
+                        <button type="button" class="color" data-bs-toggle="modal" data-bs-target="#modal">
                             Lihat Lebih Lanjut
                         </button>
                     </div>
                     <div class="row g-2 mt-3">
                         <div class="col-md-6">
                             <a href="{{ url_for('camera') }}" class="w-50">
-                                <div class="btn btn-primary me-2 w-100">Kembali</div>
+                                <div class="color me-2 w-100">Kembali</div>
                             </a>
                         </div>
                         <div class="col-md-6">
                             <a href="{{ url_for('layanan') }}" class="w-50">
-                                <div class="btn btn-primary me-2 w-100">Layanan</div>
+                                <div class="color me-2 w-100">Layanan</div>
                             </a>
                         </div>
                     </div>
@@ -174,12 +193,6 @@
         </div>
     </div>
 
-
-    <div class="layanan-unggulan-camera">
-        <div class="container">
-
-        </div>
-    </div>
 
 
 

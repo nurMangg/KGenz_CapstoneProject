@@ -4,7 +4,19 @@
     {{title}}
 {% endblock title %}
 
+{% block styles %}
+html,
+body {
 
+    font-family: 'poppins';
+    overflow: auto;
+    background-image: linear-gradient(90deg, #f5f7fa 0%, #c3cfe2 100%);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+{% endblock styles %}
 
 {% block content1 %}
 
@@ -12,7 +24,7 @@
 {% include "user/layouts/flash_message.html" %}
 
 
-<div class="containerLogin d-flex justify-content-center">
+<div class="containerLogin d-flex justify-content-center" style="flex: 1;" >
     <div class="container">
         <div class="image">
             <img class="mt-5 img" src="{{ url_for('static', filename='img/logo.png')}}" alt="" width="427px" height="139px">
@@ -58,8 +70,8 @@
 
 {% block content2 %}
 <div class="d-flex justify-content-center">
-    <footer class="" style="bottom: 0; position: fixed;">
-        <p class="text-center">Copyright &copy; 2023 Capstone Project</p>
+    <footer class="footer">
+        <p class="text-center">Copyright &copy; 2023 - 2024 KGenz - Capstone Project</p>
     </footer>
 </div>
 {% endblock content2 %}

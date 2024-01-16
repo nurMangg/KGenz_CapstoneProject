@@ -1,34 +1,41 @@
-{% extends "user/layouts/main.html" %}
+{% extends "user/layouts/main_utama.html" %}
 
 {% block title %}
-    K-GenZ | Beranda
+K-GenZ | Beranda
 {% endblock title %}
 
 
-{% include "user/layouts/navbar.html" %}
 
 {% block content1 %}
+{% include "user/layouts/flash_message.html" %}
 <div class="mx-auto">
   <div class="d-flex justify-content-center mt-5">
-      <div class="container">
-          <div class="row g-5">
-              <div class="col-md-8 text">
-                  <div class="">
-                      <h1><span style="font-size: 50px; font-family: 'Times New Roman', Times, serif;">Hai, </span><span style="" id="typewriter-text"> </span></h1>
-                      <p>K Gen-Z hadir guna jaga kesehatan mentalmu Seperti Mengecek Tingkat kesetresan kamu, berinteraksi dengan chatbot untuk membantu kamu dalam menyelesaikan masalah kesehatan mental kamu</p>
-                      <a href="{{ url_for('layanan')}}"><div class="btn btn-success">Mulai Sekarang</div>
-                      </div></a>
-              </div>
-              <div class="col-md-4">
-                  <div class="image">
-                      <img src="{{ url_for('static', filename='img/vector-1.png')}}" alt="">
-                  </div>
-              </div>
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-xl-8 text">
+          <div class="">
+            <h1><span style="font-size: 50px; font-family: 'Times New Roman', Times, serif;">Hai, </span><span style=""
+                id="typewriter-text"> </span></h1>
+            <p>K Gen-Z hadir guna jaga kesehatan mentalmu Seperti Mengecek Tingkat kesetresan kamu, berinteraksi dengan
+              chatbot untuk membantu kamu dalam menyelesaikan masalah kesehatan mental kamu</p>
+            <a href="{{ url_for('layanan')}}" class="pe-3" style="float: left;">
+              <div class="btn btn-success">Mulai Sekarang</div><br>
+            </a>
+            <a href="{{ url_for('download_file')}}">
+              <div class="btn btn-primary">Dapatkan Aplikasi Android</div>
+            </a>
           </div>
+        </div>
+          <div class="col-xl-4">
+            <div class="image">
+              <img src="{{ url_for('static', filename='img/vector-1.png')}}" alt="">
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
-</div>
-<script>
+  <script>
     const textArray = [
       "{{ username }}"
     ];
@@ -60,27 +67,27 @@
 
     typeWriter(); // Mulai efek mengetik
   </script>
-{% endblock %}
+  {% endblock %}
 
 
 
-{% block content8 %}
-<div class="layanan-unggulan">
+  {% block content8 %}
+  <div class="layanan-unggulan">
     <div class="container">
-        <div class="row g-2">
-            <div class="col-md-8">
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/vector-2.png')}}" alt="">
-                    <h2>Teknik Relaksasi</h2>
-                </div>
-            </div>
-            <div class="col-md-4 text">
-                <div class="">
-                    <h1>Layanan Unggulan</h1>
-                </div>
-            </div>
-
+      <div class="row g-2">
+        <div class="col-md-8">
+          <div class="image">
+            <img src="{{ url_for('static', filename='img/vector-2.png')}}" alt="">
+            <h2>Teknik Relaksasi</h2>
+          </div>
         </div>
+        <div class="col-md-4 text">
+          <div class="">
+            <h1>Layanan Unggulan</h1>
+          </div>
+        </div>
+
+      </div>
     </div>
-</div>
-{% endblock %}
+  </div>
+  {% endblock %}

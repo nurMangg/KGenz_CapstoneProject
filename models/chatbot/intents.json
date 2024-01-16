@@ -10,8 +10,7 @@
             "Ada Apa?",
             "Apa Kabar mu?",
             "heyy",
-            "Apa?",
-            "??? ??? ??"
+            "Apa?"
          ],
          "responses": [
             "Hallo!",
@@ -20,6 +19,12 @@
          ],
          "context_set": ""
       },
+      {
+      	"tag": "noanswer",
+         "patterns": ["??? ??? ??"],
+         "responses": ["Maaf, saya tidak mengerti", "Tolong beri saya info lebih lanjut", "Saya tidak yakin saya mengerti"],
+         "context_set": ""
+        },
       {
          "tag": "selamat_tinggal",
          "patterns": [
@@ -136,7 +141,10 @@
       {
          "tag": "atasi_stress_2",
          "patterns": [
-            "bagaimana cara menghilangkan stress?",
+            "bagaimana cara menghilangkan stres?",
+            "cara menghilangkan stres?",
+            "cara menghilangkan stres",
+            "cara menghilangkan stress",
             "Apa strategi yang efektif untuk meredakan stres dan menciptakan perasaan lebih tenang?"
          ],
          "responses": [
@@ -149,7 +157,8 @@
          "patterns": [
             "Bagaimana Anda dapat membantu saya mengatasi stres dan kecemasan?",
             "apa saja gejala yang disebabkan oleh stres?",
-            "Gejala Stress"
+            "Gejala Stress",
+            "gejala stres"
          ],
          "responses": [
             "Saya dapat memberikan saran dan teknik manajemen stres, memberikan informasi tentang latihan relaksasi, serta mendukung Anda dalam menemukan strategi koping yang sesuai dengan situasi Anda.Gejala stres dapat mencakup ketegangan otot, gangguan tidur, perubahan nafsu makan, peningkatan denyut jantung, kesulitan berkonsentrasi, dan perubahan mood seperti kecemasan atau iritabilitas."
@@ -159,7 +168,10 @@
       {
          "tag": "tingkat_stress_0",
          "patterns": [
-            "apa yang di maksud dengan tingkat stres sangat rendah?"
+            "apa yang di maksud dengan tingkat tidak ada stres",
+            "tingkat tidak ada stres",
+            "yang dimaksud dengan tingkat tidak ada stres",
+            "yang dimaksud dengan tingkat tidak ada stres?"
          ],
          "responses": [
             "Pada tingkat stres yang rendah.Emosi yang dominan adalah kebahagiaan (happy) .umumnya dianggap positif untuk kesejahteraan mental dan fisik."
@@ -169,7 +181,11 @@
       {
          "tag": "tingkat_stress_1",
          "patterns": [
-            "apa yang di maksud dengan tingkat stres rendah?"
+            "apa yang di maksud dengan tingkat stres rendah?",
+            "yang di maksud dengan tingkat stres rendah?",
+            "tingkat stres rendah?",
+            "tingkat stres rendah",
+            "stres rendah"
          ],
          "responses": [
             "Pada tingkat stres yang rendah, seseorang biasanya merasa nyaman, rileks, atau netral dalam situasi tertentu.Emosi yang dominan adalah kebahagiaan (happy) dan ketenangan (neutral). Individu pada tingkat stres rendah cenderung memiliki kemampuan berpikir jernih, konsentrasi yang tinggi, dan merasa tenang."
@@ -179,7 +195,10 @@
       {
          "tag": "tingkat_stress_2",
          "patterns": [
-            "apa yang dimaksud dengan tingkat stres sedang?"
+            "apa yang dimaksud dengan tingkat stres sedang?",
+            "yang dimaksud dengan tingkat stres sedang?",
+            "tingkat stres sedang?",
+            "tingkat stres sedang"
          ],
          "responses": [
             "Pada tingkat stres yang moderat, seseorang mungkin mengalami perasaan marah (angry) atau sedih (sad) yang lebih kuat. Stres sedang dapat memunculkan reaksi emosional yang lebih intens, tetapi belum mencapai tingkat stres yang tinggi. Kemampuan konsentrasi mungkin sedikit terganggu, dan individu mungkin merasa agak tertekan atau gelisah."
@@ -189,7 +208,10 @@
       {
          "tag": "tingkat_stress_3",
          "patterns": [
-            "apa yang dimaksud dengan tingkat stres tinggi?"
+            "apa yang dimaksud dengan tingkat stres tinggi?",
+            "tingkat stres tinggi?",
+            "yang dimaksud dengan tingkat stres tinggi?",
+            "tingkat stres tinggi"
          ],
          "responses": [
             "Pada tingkat stres yang tinggi, individu mungkin mengalami emosi seperti jijik (disgust) atau rasa takut (fear) yang kuat. Stres tinggi dapat menyebabkan reaksi emosional yang sangat kuat dan bisa mengganggu kemampuan berpikir secara rasional.Seseorang pada tingkat stres tinggi mungkin merasa tegang, cemas, dan bahkan mengalami gangguan fisik seperti sakit kepala, gangguan tidur, dan gangguan pencernaan."
@@ -199,7 +221,10 @@
       {
          "tag": "tingkat_stress",
          "patterns": [
-            "apakah stress menyebabkan masalah kesehatan?"
+            "apakah stress menyebabkan masalah kesehatan?",
+            "stress menyebabkan masalah kesehatan?",
+            "masalah kesehatan",
+            "kesehatan stres"
          ],
          "responses": [
             "Stres yang terus-menerus diketahui menyebabkan banyak masalah medis. Ini termasuk sakit kepala terus menerus yang mungkin semakin parah. Masalah lainnya termasuk insomnia, nyeri dada, dan detak jantung cepat. Selain itu, orang yang mengalami stres secara rutin lebih mungkin menderita masalah yang berhubungan dengan jantung."

@@ -15,7 +15,8 @@
     html,
     body {
         height: 100%;
-        overflow: hidden;
+        background-image: linear-gradient(90deg, #f5f7fa 0%, #c3cfe2 100%);
+        
     }
 
     .size-beranda {
@@ -26,9 +27,9 @@
     }
 
     .layanan-unggulan-camera {
-        margin-top: -350px;
+
         height: 60%;
-        background-color: #11009E;
+        background-image: linear-gradient(90deg, #f5f7fa 0%, #c3cfe2 100%);
         color: white;
     }
 
@@ -73,16 +74,30 @@
         /* Menghindari tampilan yang melebihi kotak */
     }
 
+    .color {
+        background-color: #11009E;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .color:hover {
+        background-color: #090058;
+    }
+
 
     .image-logo {
         position: absolute;
         top: 150px;
-        right: 500px;
+        right: 600px;
         width: 100px;
         height: 100px;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1330px) {
         .image-logo {
             display: none;
         }
@@ -90,11 +105,14 @@
 </style>
 
 <body>
-    <div class="navbar">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary w-100">
+    <div class="navbar pb-5">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary w-100" style="background-image: linear-gradient(90deg, #f5f7fa 0%, #c3cfe2 100%);">
             <div class="container-fluid ms-5">
-                <img class="navbar-brand" src="{{ url_for('static', filename='img/logo.png')}}" width="300px"
-                    height="75px" alt="">
+                <a href="{{url_for('beranda')}}">
+
+                    <img class="navbar-brand" src="{{ url_for('static', filename='img/logo.png')}}" width="300px"
+                        height="75px" alt="">
+                </a>
 
             </div>
         </nav>
@@ -103,26 +121,27 @@
     <div class="image-logo">
         <img src="{{ url_for('static', filename='/img/camera.png')}}" alt="Logo-Kamera">
     </div>
+    
 
     <div class="call-to-action">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 text">
+                <div class="col-xl-6 text">
                     <div class="box">
                         <div class="box-header">
                             <h2 class="text-head">Mengambil Gambar Pengguna</h2>
                         </div>
                         <div class="box-camera">
                             <video id="video" width="100%" height="100%" autoplay></video>
-                            <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+                            <canvas id="canvas" width="480" height="480" style="display: none;"></canvas>
                         </div>
                     </div>
                     <div class="mt-3">
-                        <button id="snap-btn" class="btn btn-primary w-100">Capture Camera</button>
+                        <button id="snap-btn" class="color w-100">Capture Camera</button>
                         <form action="{{url_for('upload_file')}}" method="POST" enctype="multipart/form-data">
                             <div class="d-flex mt-2 mb-2">
                                 <input class="form-control me-2" type="file" id="formFile" name="file">
-                                <input class="bg-primary border-0 text-light rounded" type="submit" value="Unggah Gambar">
+                                <input class="color border-0 text-light rounded" type="submit" value="Unggah Gambar">
                             </div>
                             <p class="text-danger fst-italic">*{{ message }}</p>
                             
@@ -131,12 +150,6 @@
 
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="layanan-unggulan-camera">
-        <div class="container">
-           
         </div>
     </div>
 
